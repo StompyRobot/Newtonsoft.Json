@@ -40,7 +40,7 @@ namespace Newtonsoft.Json.Utilities
 
     public static TimeSpan GetUtcOffset(this DateTime d)
     {
-#if NET20
+#if NET20 || NET30 || NET35
       return TimeZone.CurrentTimeZone.GetUtcOffset(d);
 #else
       return TimeZoneInfo.Local.GetUtcOffset(d);
