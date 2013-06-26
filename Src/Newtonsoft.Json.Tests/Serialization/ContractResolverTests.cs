@@ -87,7 +87,7 @@ namespace Newtonsoft.Json.Tests.Serialization
     }
   }
 
-#if !NET20
+#if !NET20 && !UNITY
   public class AddressWithDataMember
   {
     [DataMember(Name = "CustomerAddress1")]
@@ -99,7 +99,7 @@ namespace Newtonsoft.Json.Tests.Serialization
   [TestFixture]
   public class ContractResolverTests : TestFixtureBase
   {
-#if !NET20
+#if !NET20 && !UNITY
     [Test]
     public void DeserializeDataMemberClassWithNoDataContract()
     {

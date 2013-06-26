@@ -115,7 +115,7 @@ namespace Newtonsoft.Json.Serialization
     }
 #endif
 
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
     public static DataContractAttribute GetDataContractAttribute(Type type)
     {
       // DataContractAttribute does not have inheritance
@@ -171,7 +171,7 @@ namespace Newtonsoft.Json.Serialization
       if (objectAttribute != null)
         return objectAttribute.MemberSerialization;
 
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
       DataContractAttribute dataContractAttribute = GetDataContractAttribute(objectType);
       if (dataContractAttribute != null)
         return MemberSerialization.OptIn;
@@ -396,7 +396,7 @@ namespace Newtonsoft.Json.Serialization
       {
         if (_dynamicCodeGeneration == null)
         {
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
           try
           {
             new ReflectionPermission(ReflectionPermissionFlag.MemberAccess).Demand();

@@ -527,7 +527,7 @@ now brown cow?", '"', true);
 
       TestDateTimeFormat(value, new IsoDateTimeConverter());
 
-#if !NETFX_CORE
+#if !NETFX_CORE && !UNITY
       if (value is DateTime)
       {
         Console.WriteLine(XmlConvert.ToString((DateTime)(object)value, XmlDateTimeSerializationMode.RoundtripKind));
@@ -538,7 +538,7 @@ now brown cow?", '"', true);
       }
 #endif
 
-#if !NET20
+#if !NET20 && !UNITY
       MemoryStream ms = new MemoryStream();
       DataContractSerializer s = new DataContractSerializer(typeof(T));
       s.WriteObject(ms, value);

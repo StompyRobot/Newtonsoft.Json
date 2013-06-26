@@ -38,7 +38,7 @@ using Test = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestMethodAtt
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Collections;
-#if !PocketPC && !SILVERLIGHT && !NETFX_CORE
+#if !PocketPC && !SILVERLIGHT && !NETFX_CORE && !UNITY
 using System.Web.UI;
 #endif
 #if NET20
@@ -682,7 +682,7 @@ Parameter name: arrayIndex",
       Assert.AreEqual(p4, l[1]);
     }
 
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || UNITY)
     [Test]
     public void PropertyChanging()
     {
@@ -1239,7 +1239,7 @@ Parameter name: arrayIndex",
       });
     }
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
     [Test]
     public void IBindingListSortDirection()
     {

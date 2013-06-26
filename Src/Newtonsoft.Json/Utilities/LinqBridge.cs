@@ -1,4 +1,4 @@
-﻿#if NET20
+﻿#if NET20 && !UNITY
 
 #region License, Terms and Author(s)
 //

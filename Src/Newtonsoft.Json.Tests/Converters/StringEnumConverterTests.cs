@@ -67,7 +67,7 @@ namespace Newtonsoft.Json.Tests.Converters
       Positive = 1
     }
 
-#if !NET20
+#if !NET20 && !UNITY
     public enum NamedEnum
     {
       [EnumMember(Value = "@first")]
@@ -93,7 +93,7 @@ namespace Newtonsoft.Json.Tests.Converters
       public NegativeEnum Value2 { get; set; }
     }
 
-#if !NET20
+#if !NET20 && !UNITY
     [Test]
     public void NamedEnumDuplicateTest()
     {

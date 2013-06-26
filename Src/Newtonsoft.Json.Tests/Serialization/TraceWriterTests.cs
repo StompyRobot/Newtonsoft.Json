@@ -458,7 +458,7 @@ Newtonsoft.Json Error: 0 : Error!
       Assert.AreEqual("Finished deserializing System.Collections.Generic.List`1[System.Object]. Path '$values', line 17, position 4.", traceWriter.TraceRecords[9].Message);
     }
 
-#if !(NETFX_CORE || PORTABLE || SILVERLIGHT)
+#if !(NETFX_CORE || PORTABLE || SILVERLIGHT || UNITY)
     [Test]
     public void DeserializeISerializable()
     {
@@ -566,6 +566,8 @@ Newtonsoft.Json Error: 0 : Error!
       Assert.AreEqual(TraceLevel.Verbose, traceWriter.TraceRecords[1].Level);
     }
 
+#if !UNITY
+
     [Test]
     public void SpecifiedTest()
     {
@@ -644,6 +646,8 @@ Newtonsoft.Json Error: 0 : Error!
       Assert.AreEqual(27, deserialized.Age);
       Assert.AreEqual(23, deserialized.FavoriteNumber);
     }
+	  
+#endif
   }
 
   public class TraceRecord

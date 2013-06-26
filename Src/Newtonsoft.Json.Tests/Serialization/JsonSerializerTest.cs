@@ -24,11 +24,11 @@
 #endregion
 
 using System;
-#if !(NET35 || NET20 || SILVERLIGHT || WINDOWS_PHONE)
+#if !(NET35 || NET20 || SILVERLIGHT || WINDOWS_PHONE || UNITY)
 using System.Collections.Concurrent;
 #endif
 using System.Collections.Generic;
-#if !SILVERLIGHT && !PocketPC && !NET20 && !NETFX_CORE
+#if !SILVERLIGHT && !PocketPC && !NET20 && !NETFX_CORE && !UNITY
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Runtime.CompilerServices;
@@ -48,12 +48,14 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections;
 using System.Xml;
+#if !UNITY
 using System.Xml.Serialization;
+#endif
 using System.Collections.ObjectModel;
 using Newtonsoft.Json.Bson;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;
-#if !PocketPC && !NET20 && !WINDOWS_PHONE
+#if !PocketPC && !NET20 && !WINDOWS_PHONE && !UNITY
 using System.Runtime.Serialization.Json;
 #endif
 using Newtonsoft.Json.Serialization;
@@ -63,7 +65,7 @@ using System.Runtime.Serialization;
 using System.Globalization;
 using Newtonsoft.Json.Utilities;
 using System.Reflection;
-#if !NET20 && !SILVERLIGHT
+#if !NET20 && !SILVERLIGHT && !UNITY
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
@@ -78,7 +80,7 @@ using Newtonsoft.Json.Utilities.LinqBridge;
 #else
 using System.Linq;
 #endif
-#if !(SILVERLIGHT || NETFX_CORE)
+#if !(SILVERLIGHT || NETFX_CORE || UNITY)
 using System.Drawing;
 #endif
 
@@ -173,7 +175,7 @@ namespace Newtonsoft.Json.Tests.Serialization
 
       string jsonText = JsonConvert.SerializeObject(testDictionary);
 
-#if !PocketPC && !NET20 && !WINDOWS_PHONE
+#if !PocketPC && !NET20 && !WINDOWS_PHONE && !UNITY
       MemoryStream ms = new MemoryStream();
       DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Dictionary<string, object>));
       serializer.WriteObject(ms, testDictionary);
@@ -432,7 +434,7 @@ keyword such as type of business.""
       CollectionAssert.AreEqual(r1, r2);
     }
 
-#if !PocketPC && !NET20 && !WINDOWS_PHONE
+#if !PocketPC && !NET20 && !WINDOWS_PHONE && !UNITY
     [Test]
     public void Unicode()
     {
@@ -1548,7 +1550,7 @@ keyword such as type of business.""
       Assert.AreEqual("titleId", n.FidOrder[n.FidOrder.Count - 1]);
     }
 
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || UNITY)
     [MetadataType(typeof(OptInClassMetadata))]
     public class OptInClass
     {
@@ -1595,7 +1597,7 @@ keyword such as type of business.""
     }
 #endif
 
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
     [DataContract]
     public class DataContractPrivateMembers
     {
@@ -2759,7 +2761,7 @@ Path '', line 1, position 2.",
       public string Ethnicity { get; set; }
     }
 
-#if !NET20 && !PocketPC && !WINDOWS_PHONE
+#if !NET20 && !PocketPC && !WINDOWS_PHONE && !UNITY
     public class DataContractJsonSerializerTestClass
     {
       public TimeSpan TimeSpanProperty { get; set; }
@@ -3415,7 +3417,7 @@ To fix this error either change the environment to be fully trusted, change the 
       }
     }
 
-#if !NET20 && !SILVERLIGHT
+#if !NET20 && !SILVERLIGHT && !UNITY
     public class XNodeTestObject
     {
       public XDocument Document { get; set; }
@@ -3423,14 +3425,14 @@ To fix this error either change the environment to be fully trusted, change the 
     }
 #endif
 
-#if !SILVERLIGHT && !NETFX_CORE
+#if !SILVERLIGHT && !NETFX_CORE && !UNITY
     public class XmlNodeTestObject
     {
       public XmlDocument Document { get; set; }
     }
 #endif
 
-#if !(NET20 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || SILVERLIGHT || PORTABLE || UNITY)
     [Test]
     public void SerializeDeserializeXNodeProperties()
     {
@@ -3461,7 +3463,7 @@ To fix this error either change the environment to be fully trusted, change the 
     }
 #endif
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
     [Test]
     public void SerializeDeserializeXmlNodeProperties()
     {
@@ -3911,6 +3913,8 @@ To fix this error either change the environment to be fully trusted, change the 
       Console.WriteLine(json);
     }
 
+#if !UNITY
+
     [Test]
     public void SpecifiedTest()
     {
@@ -3956,8 +3960,9 @@ To fix this error either change the environment to be fully trusted, change the 
       Assert.AreEqual(27, deserialized.Age);
       Assert.AreEqual(23, deserialized.FavoriteNumber);
     }
+#endif
 
-    //    [Test]
+	//    [Test]
     //    public void XmlSerializerSpecifiedTrueTest()
     //    {
     //      XmlSerializer s = new XmlSerializer(typeof(OptionalOrder));
@@ -3996,6 +4001,7 @@ To fix this error either change the environment to be fully trusted, change the 
     //      //      Console.WriteLine(o.FirstOrder);
     //      //      Console.WriteLine(o.FirstOrderSpecified);
     //    }
+#if !UNITY
 
     public class OptionalOrder
     {
@@ -4008,7 +4014,9 @@ To fix this error either change the environment to be fully trusted, change the 
       public bool FirstOrderSpecified;
     }
 
-    public class FamilyDetails
+#endif
+
+	public class FamilyDetails
     {
       public string Name { get; set; }
       public int NumberOfChildren { get; set; }
@@ -4161,7 +4169,7 @@ To fix this error either change the environment to be fully trusted, change the 
       Assert.AreEqual(0, z[1].Prop1.Length);
     }
 
-#if !NET20 && !PocketPC && !SILVERLIGHT && !NETFX_CORE
+#if !NET20 && !PocketPC && !SILVERLIGHT && !NETFX_CORE && !UNITY
     public class StringDictionaryTestClass
     {
       public StringDictionary StringDictionaryProperty { get; set; }
@@ -4456,7 +4464,7 @@ To fix this error either change the environment to be fully trusted, change the 
       Assert.AreEqual(meh.IDontWork, "meh");
     }
 
-#if !(SILVERLIGHT || PocketPC || NET20 || NETFX_CORE)
+#if !(SILVERLIGHT || PocketPC || NET20 || NETFX_CORE || UNITY)
     [DataContract]
     public struct StructISerializable : ISerializable
     {
@@ -4880,7 +4888,7 @@ To fix this error either change the environment to be fully trusted, change the 
       JsonConvert.DeserializeObject<EnumerableArrayPropertyClass>(json);
     }
 
-#if !NET20
+#if !NET20 && !UNITY
     [DataContract]
     public class BaseDataContract
     {
@@ -5216,7 +5224,7 @@ To fix this error either change the environment to be fully trusted, change the 
       Assert.IsNull(r.Departures.ElementAt(2));
     }
 
-#if !(NET20)
+#if !(NET20 || UNITY)
     [DataContract]
     public class BaseType
     {
@@ -5537,7 +5545,7 @@ To fix this error either change the environment to be fully trusted, change the 
       }
     }
 
-#if !(SILVERLIGHT || WINDOWS_PHONE || NET20 || NETFX_CORE)
+#if !(SILVERLIGHT || WINDOWS_PHONE || NET20 || NETFX_CORE || UNITY)
     [Test]
     public void DeserializeDecimalsWithCulture()
     {
@@ -5978,7 +5986,7 @@ Parameter name: value",
     }
 #endif
 
-#if !(SILVERLIGHT || NETFX_CORE)
+#if !(SILVERLIGHT || NETFX_CORE || UNITY)
     [Test]
     public void MetroBlogPost()
     {
@@ -7500,7 +7508,7 @@ Parameter name: value",
     }
   }
 
-#if !(NET20 || NET35)
+#if !(NET20 || NET35 || UNITY)
   [DataContract]
   public class DataContractSerializationAttributesClass
   {
@@ -7584,7 +7592,7 @@ Parameter name: value",
       return _shouldSerializeName;
     }
   }
-
+#if !UNITY
   public class SpecifiedTestClass
   {
     private bool _nameSpecified;
@@ -7620,4 +7628,5 @@ Parameter name: value",
       get { return FavoriteNumber != 0; }
     }
   }
+#endif
 }

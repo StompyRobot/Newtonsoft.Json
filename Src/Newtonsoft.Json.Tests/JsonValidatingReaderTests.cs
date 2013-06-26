@@ -37,8 +37,6 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using TestFixture = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestClassAttribute;
 using Test = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestMethodAttribute;
 #endif
-using System.Xml;
-using System.Xml.Schema;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Utilities;
 using ValidationEventArgs = Newtonsoft.Json.Schema.ValidationEventArgs;

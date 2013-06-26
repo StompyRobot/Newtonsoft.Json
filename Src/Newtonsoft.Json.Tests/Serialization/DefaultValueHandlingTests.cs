@@ -203,7 +203,7 @@ namespace Newtonsoft.Json.Tests.Serialization
       Assert.IsFalse(MathUtils.ApproxEquals(0.0, 0.00001));
     }
 
-#if !NET20
+#if !NET20 && !UNITY
     [Test]
     public void EmitDefaultValueTest()
     {
@@ -349,7 +349,7 @@ namespace Newtonsoft.Json.Tests.Serialization
     public int IntDefault { get; set; }
   }
 
-#if !NET20
+#if !NET20 && !UNITY
   [DataContract]
   public class EmitDefaultValueClass
   {

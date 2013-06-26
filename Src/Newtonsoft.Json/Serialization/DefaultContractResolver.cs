@@ -39,7 +39,9 @@ using System.Runtime.Serialization;
 #if !(NETFX_CORE || PORTABLE)
 using System.Security.Permissions;
 #endif
+#if !UNITY
 using System.Xml.Serialization;
+#endif
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Utilities;
 using Newtonsoft.Json.Linq;
@@ -103,10 +105,10 @@ namespace Newtonsoft.Json.Serialization
 #if !(NET35 || NET20 || WINDOWS_PHONE || PORTABLE)
         new ExpandoObjectConverter(),
 #endif
-#if (!(SILVERLIGHT || PORTABLE) || WINDOWS_PHONE)
+#if (!(SILVERLIGHT || PORTABLE || UNITY) || WINDOWS_PHONE)
         new XmlNodeConverter(),
 #endif
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
         new BinaryConverter(),
         new DataSetConverter(),
         new DataTableConverter(),
@@ -274,7 +276,7 @@ namespace Newtonsoft.Json.Serialization
       
       if (memberSerialization != MemberSerialization.Fields)
       {
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
         DataContractAttribute dataContractAttribute = JsonTypeReflector.GetDataContractAttribute(objectType);
 #endif
 
@@ -297,7 +299,7 @@ namespace Newtonsoft.Json.Serialization
               // or are a field if serializing just fields
               if (JsonTypeReflector.GetAttribute<JsonPropertyAttribute>(member.GetCustomAttributeProvider()) != null)
                 serializableMembers.Add(member);
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
               else if (dataContractAttribute != null && JsonTypeReflector.GetAttribute<DataMemberAttribute>(member.GetCustomAttributeProvider()) != null)
                 serializableMembers.Add(member);
 #endif
@@ -517,7 +519,7 @@ namespace Newtonsoft.Json.Serialization
       {
         contract.IsReference = containerAttribute._isReference;
       }
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
       else
       {
         DataContractAttribute dataContractAttribute = JsonTypeReflector.GetDataContractAttribute(contract.NonNullableUnderlyingType);
@@ -937,7 +939,7 @@ namespace Newtonsoft.Json.Serialization
 
     private void SetPropertySettingsFromAttributes(JsonProperty property, ICustomAttributeProvider attributeProvider, string name, Type declaringType, MemberSerialization memberSerialization, out bool allowNonPublicAccess)
     {
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
       DataContractAttribute dataContractAttribute = JsonTypeReflector.GetDataContractAttribute(declaringType);
 
       MemberInfo memberInfo = null;
@@ -961,7 +963,7 @@ namespace Newtonsoft.Json.Serialization
       string mappedName;
       if (propertyAttribute != null && propertyAttribute.PropertyName != null)
         mappedName = propertyAttribute.PropertyName;
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
       else if (dataMemberAttribute != null && dataMemberAttribute.Name != null)
         mappedName = dataMemberAttribute.Name;
 #endif
@@ -979,7 +981,7 @@ namespace Newtonsoft.Json.Serialization
         property.DefaultValueHandling = propertyAttribute._defaultValueHandling;
         hasMemberAttribute = true;
       }
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
       else if (dataMemberAttribute != null)
       {
         property._required = (dataMemberAttribute.IsRequired) ? Required.AllowNull : Required.Default;
@@ -1044,7 +1046,7 @@ namespace Newtonsoft.Json.Serialization
       if (memberSerialization == MemberSerialization.Fields)
         allowNonPublicAccess = true;
 
-#if !PocketPC && !NET20
+#if !PocketPC && !NET20 && !UNITY
       if (dataMemberAttribute != null)
       {
         allowNonPublicAccess = true;

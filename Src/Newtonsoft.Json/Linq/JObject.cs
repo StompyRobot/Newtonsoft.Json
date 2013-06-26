@@ -55,7 +55,7 @@ namespace Newtonsoft.Json.Linq
 #if !(SILVERLIGHT || NETFX_CORE || PORTABLE)
     , ICustomTypeDescriptor
 #endif
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || UNITY)
     , INotifyPropertyChanging
 #endif
   {
@@ -75,7 +75,7 @@ namespace Newtonsoft.Json.Linq
     /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || UNITY)
     /// <summary>
     /// Occurs when a property value is changing.
     /// </summary>
@@ -158,7 +158,7 @@ namespace Newtonsoft.Json.Linq
     internal void InternalPropertyChanged(JProperty childProperty)
     {
       OnPropertyChanged(childProperty.Name);
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
       if (_listChanged != null)
         OnListChanged(new ListChangedEventArgs(ListChangedType.ItemChanged, IndexOfItem(childProperty)));
 #endif
@@ -170,7 +170,7 @@ namespace Newtonsoft.Json.Linq
 
     internal void InternalPropertyChanging(JProperty childProperty)
     {
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || UNITY)
       OnPropertyChanging(childProperty.Name);
 #endif
     }
@@ -273,7 +273,7 @@ namespace Newtonsoft.Json.Linq
         }
         else
         {
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || UNITY)
           OnPropertyChanging(propertyName);
 #endif
           Add(new JProperty(propertyName, value));
@@ -586,7 +586,7 @@ namespace Newtonsoft.Json.Linq
         PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
     }
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || NET20)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || NET20 || UNITY)
     /// <summary>
     /// Raises the <see cref="PropertyChanging"/> event with the provided arguments.
     /// </summary>

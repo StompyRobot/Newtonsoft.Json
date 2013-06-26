@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
-#if !NET20
+#if !NET20 && !UNITY
 using System.Xml.Linq;
 #endif
 using Newtonsoft.Json.Utilities;
@@ -322,7 +322,7 @@ namespace Newtonsoft.Json.Converters
   #endregion
 
   #region XNodeWrappers
-#if !NET20
+#if !NET20 && !UNITY
   internal class XDeclarationWrapper : XObjectWrapper, IXmlDeclaration
   {
     internal XDeclaration Declaration { get; private set; }
