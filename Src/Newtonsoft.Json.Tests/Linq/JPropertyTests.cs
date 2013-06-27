@@ -56,7 +56,7 @@ namespace Newtonsoft.Json.Tests.Linq
       Assert.AreEqual(p, p.Value.Parent);
     }
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40 || UNITY)
     [Test]
     public void ListChanged()
     {

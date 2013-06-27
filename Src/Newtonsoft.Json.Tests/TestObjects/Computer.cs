@@ -26,7 +26,7 @@
 using System;
 using System.Runtime.Serialization;
 
-#if !PocketPC && !NET20 && !UNITY
+#if !NET20 && !UNITY
 namespace Newtonsoft.Json.Tests.TestObjects
 {
   [DataContract]

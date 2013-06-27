@@ -23,7 +23,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40 || UNITY)
 using NUnit.Framework;
 using System.Web.UI;
 using Newtonsoft.Json.Linq;

@@ -87,7 +87,7 @@ namespace Newtonsoft.Json.Utilities
           Dictionary<TKey, TValue> newStore = new Dictionary<TKey, TValue>(_store, _comparer);
           newStore[key] = value;
 
-#if !NETFX_CORE
+#if !(NETFX_CORE || PORTABLE)
           Thread.MemoryBarrier();
 #endif
           _store = newStore;

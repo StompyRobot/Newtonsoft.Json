@@ -23,7 +23,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || UNITY)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE40 || PORTABLE || UNITY)
 using System;
 using System.Data.SqlTypes;
 using System.Globalization;
