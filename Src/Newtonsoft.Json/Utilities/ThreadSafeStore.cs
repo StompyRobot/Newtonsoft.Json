@@ -39,13 +39,22 @@ namespace Newtonsoft.Json.Utilities
     private Dictionary<TKey, TValue> _store;
     private readonly Func<TKey, TValue> _creator;
 
-    public ThreadSafeStore(Func<TKey, TValue> creator)
+    private IEqualityComparer<TKey> _comparer;
+
+    public ThreadSafeStore(Func<TKey, TValue> creator, IEqualityComparer<TKey> comparer)
     {
       if (creator == null)
         throw new ArgumentNullException("creator");
 
       _creator = creator;
-      _store = new Dictionary<TKey, TValue>();
+      _store = new Dictionary<TKey, TValue>(comparer);
+
+      _comparer = comparer;
+    }
+
+    public ThreadSafeStore(Func<TKey, TValue> creator) : this(creator, null)
+    {
+        
     }
 
     public TValue Get(TKey key)
@@ -75,7 +84,7 @@ namespace Newtonsoft.Json.Utilities
           if (_store.TryGetValue(key, out checkValue))
             return checkValue;
 
-          Dictionary<TKey, TValue> newStore = new Dictionary<TKey, TValue>(_store);
+          Dictionary<TKey, TValue> newStore = new Dictionary<TKey, TValue>(_store, _comparer);
           newStore[key] = value;
 
 #if !NETFX_CORE
