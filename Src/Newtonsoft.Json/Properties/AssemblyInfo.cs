@@ -45,6 +45,9 @@ using System.Security;
 #elif NET20
 [assembly: AssemblyTitle("Json.NET .NET 2.0")]
 [assembly: AllowPartiallyTrustedCallers]
+#elif UNITY
+[assembly: AssemblyTitle("Json.NET Unity")]
+[assembly: AllowPartiallyTrustedCallers]
 #elif NET35
 [assembly: AssemblyTitle("Json.NET .NET 3.5")]
 [assembly: AllowPartiallyTrustedCallers]
